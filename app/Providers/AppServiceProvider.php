@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use App\Observers\UsersObserver;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\ServiceProvider;
+use App\Models\User;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +26,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // return response without data key wraping.
+        JsonResource::withoutWrapping();
+        User::observe(UsersObserver::class);
     }
 }
